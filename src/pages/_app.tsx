@@ -9,11 +9,19 @@ import defaultTheme from 'src/common/styles/variables/themes';
 import { UserContextUser } from 'src/common/models/contexts/UserContext';
 import { getPersistedUserContextUser, UserContext } from 'src/common/context/UserContext';
 
-const Toasts = dynamic(() => import('src/components/common/statefull/toasts/Toasts'), { ssr: false });
+const Toasts = dynamic(() => import('src/components/common/stateful/toasts/Toasts'), { ssr: false });
 
-// const AccessTokenChecker = dynamic(
-//     () => import('src/components/common/stateful/access-token-checker/AccessTokenChecker'),
-// );
+const AccessTokenChecker = dynamic(
+    () => import('src/components/common/stateful/access-token-checker/AccessTokenChecker'),
+);
+
+const UserContextUpdater = dynamic(
+    () => import('src/components/common/stateful/user-context-updater/UserContextUpdater'),
+    {
+        ssr: false,
+    },
+);
+
 const clientSideEmotionCache = createEmotionCache();
 
 interface InTouchAppProps extends AppProps {
@@ -32,12 +40,16 @@ const App: React.FC<InTouchAppProps> = ({ Component, pageProps, emotionCache = c
             <>
                 <CssBaseline />
                 <Component {...pageProps} />
-
-                {/* <AccessTokenChecker /> */}
+                {userContextUser?.isLogged && (
+                    <>
+                        <UserContextUpdater />
+                    </>
+                )}
+                <AccessTokenChecker />
                 <Toasts />
             </>
         ),
-        [Component, pageProps],
+        [Component, pageProps, userContextUser?.isLogged],
     );
 
     return (

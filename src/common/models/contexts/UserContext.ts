@@ -3,8 +3,9 @@ import { User } from '../dto/user/User';
 export interface UserContextUser {
     isTokenBeingChecked?: boolean;
     isLogged: boolean;
+    accessTokenExpirationDate: Date;
 
-    userId: number;
+    userId: string;
 
     userDetails?: User;
 }

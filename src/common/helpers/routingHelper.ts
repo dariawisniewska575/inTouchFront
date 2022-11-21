@@ -7,8 +7,9 @@ import { getWindow } from './windowHelper';
 export const routes: BaseRouteItem = {
     dashboard: '/dashboard',
     signIn: '/logowanie',
-    createAccount: '/dashboard/stworz-konto',
+    createAccount: '/stworz-konto',
     resetPassword: '/resetuj-haslo',
+    confirmEmail: '/confirm-email',
 };
 
 export const getPagePathname = (page: Pages): string => {
@@ -21,6 +22,8 @@ export const getPagePathname = (page: Pages): string => {
             return routes.signIn;
         case Pages.resetPassword:
             return routes.resetPassword;
+        case Pages.confirmEmail:
+            return routes.confirmEmail;
         default:
             return routes.dashboard;
     }

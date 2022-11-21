@@ -4,7 +4,7 @@ import { HttpCodes } from '../enums/HttpCodes';
 import { LocalStorageKey } from '../enums/LocalStorageKey';
 import { StorageTypes } from '../enums/StorageTypes';
 import { getStorageString } from '../helpers/storageHelper';
-import { ErrorResponse } from '../models/responses/ErrorResponse';
+import { ErrorResponse } from '../models/common/responses/ErrorResponse';
 
 export const createApiClient = (baseUrl: string): AxiosInstance => {
     const apiClient = axios.create({

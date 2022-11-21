@@ -3,4 +3,5 @@ export interface BaseRouteItem {
     dashboard: string;
     createAccount: string;
     resetPassword: string;
+    confirmEmail: string;
 }

@@ -14,12 +14,14 @@ import { signIn } from 'src/services/authService';
 import router from 'next/router';
 import { getPageUrl } from 'src/common/helpers/routingHelper';
 import { Pages } from 'src/common/enums/Pages';
-import CustomLink from '../../common/statefull/custom-link/CustomLink';
+import CustomLink from '../../common/stateful/custom-link/CustomLink';
 import { signInValidationSchema } from 'src/common/validation-schemas/signInValidationSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { handleApiError } from 'src/common/helpers/errorHelper';
 import { UserContext } from 'src/common/context/UserContext';
 import { CenteringMarginContainer } from '../../common/stateless/centering-container/CenteringContainer';
+import inTouchColors from 'src/common/styles/variables/themes/inTouchColors';
+import { getCurrentUserRequest } from 'src/api/auth/currentUserApi';
 
 const SignIn: React.FC = () => {
     const { setUserContextUser } = useContext(UserContext);
@@ -37,17 +39,18 @@ const SignIn: React.FC = () => {
     const onSubmit = async (data: SignInRequest) => {
         try {
             await signIn(data, setUserContextUser);
-            // const currentUserResponse = await getCurrentUserRequest();
 
-            // setUserContextUser((userContextUser) => {
-            //     if (!userContextUser) {
-            //         return userContextUser;
-            //     }
-            //     return {
-            //         ...userContextUser,
-            //         userDetails: currentUserResponse,
-            //     };
-            // });
+            const currentUserResponse = await getCurrentUserRequest();
+
+            setUserContextUser((userContextUser) => {
+                if (!userContextUser) {
+                    return userContextUser;
+                }
+                return {
+                    ...userContextUser,
+                    userDetails: currentUserResponse,
+                };
+            });
 
             await router.push(getPageUrl(Pages.dashboard));
         } catch (ex) {
@@ -56,58 +59,69 @@ const SignIn: React.FC = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CenteringMarginContainer>
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Zaloguj się
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        {...customRefNameRegister(register, 'email')}
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Adres email"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        error={Boolean(errors.email)}
-                        helperText={errors.email?.message}
-                    />
-                    <TextField
-                        {...customRefNameRegister(register, 'password')}
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Hasło"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        error={Boolean(errors.password)}
-                        helperText={errors.password?.message}
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        color={isValid ? 'success' : 'info'}
-                    >
+        <>
+            <div style={{ display: 'flex', justifyContent: 'end', margin: '20px' }}>
+                <div style={{ flexDirection: 'column' }}>
+                    <div>Nie masz jeszcze konta?</div>
+                    <div style={{ color: inTouchColors.lightBlue, fontWeight: '600' }}>
+                        <CustomLink page={Pages.createAccount}>Zarejestruj się</CustomLink>
+                    </div>
+                </div>
+            </div>
+
+            <Container component="main" maxWidth="xs">
+                <CenteringMarginContainer>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
                         Zaloguj się
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <CustomLink page={Pages.resetPassword}>Przypomnij hasło</CustomLink>
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            {...customRefNameRegister(register, 'email')}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Adres email"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            error={Boolean(errors.email)}
+                            helperText={errors.email?.message}
+                        />
+                        <TextField
+                            {...customRefNameRegister(register, 'password')}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Hasło"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            error={Boolean(errors.password)}
+                            helperText={errors.password?.message}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            color={isValid ? 'primary' : 'info'}
+                        >
+                            Zaloguj się
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <CustomLink page={Pages.resetPassword}>Przypomnij hasło</CustomLink>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
-            </CenteringMarginContainer>
-        </Container>
+                    </Box>
+                </CenteringMarginContainer>
+            </Container>
+        </>
     );
 };
 

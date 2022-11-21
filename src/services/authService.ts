@@ -25,11 +25,14 @@ export const setTokensInUserContext = (
 
     const userContextValue: UserContextUser = {
         isLogged: true,
-        userId: parseInt(jwt[ClaimTypes.Subject]),
+        userId: jwt[ClaimTypes.Subject],
+        accessTokenExpirationDate: new Date(jwt[ClaimTypes.Iat]),
     };
 
     setStorageObject(LocalStorageKey.UserContextKey, userContextValue, StorageTypes.Session);
     setStorageString(LocalStorageKey.UserAccessTokenKey, response.token, StorageTypes.Session);
+    setStorageString(LocalStorageKey.UserRefreshTokenKey, response.refreshToken, StorageTypes.Session);
+
     userContextValue.isTokenBeingChecked = false;
     setUserContext((userContext) => ({ ...userContext, ...userContextValue }));
 };
