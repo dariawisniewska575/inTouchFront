@@ -1,6 +1,5 @@
 import { Logout } from '@mui/icons-material';
-import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { getCurrentUserRequest } from 'src/api/auth/currentUserApi';
@@ -8,8 +7,9 @@ import { UserContext } from 'src/common/context/UserContext';
 import { Pages } from 'src/common/enums/Pages';
 import { handleApiError } from 'src/common/helpers/errorHelper';
 import { getPageUrl } from 'src/common/helpers/routingHelper';
-import inTouchColors from 'src/common/styles/variables/themes/inTouchColors';
 import useCurrentUserHelper from 'src/components/hooks/use-current-user-helper/useCurrentUserHelper';
+import { DContainer, DHeader, MainContainer } from './DashboardStyles';
+import DashboardUserList from './DashboardUserList';
 
 const Dashboard: React.FC = () => {
     const [userName, setUserName] = useState('');
@@ -55,27 +55,26 @@ const Dashboard: React.FC = () => {
     }, [getCurrentUser]);
 
     return (
-        <Container
-            style={{
-                minHeight: '100px',
-                background: inTouchColors.lightBlue,
-                justifyContent: 'space-between',
-                display: 'flex',
-                padding: '16px',
-            }}
-        >
-            <Typography variant="h5" style={{ fontWeight: '600' }}>
-                Witaj {userName}
-            </Typography>
-            <IconButton color="inherit" aria-label="open drawer" onClick={handleOpenMenu}>
-                menu
-            </IconButton>
-            <Menu anchorEl={anchorEl} open={isMenuOpen} onClose={handleMenuClose}>
-                <MenuItem onClick={handleLogout}>
-                    <Logout /> Wyloguj
-                </MenuItem>
-            </Menu>
-        </Container>
+        <MainContainer>
+            <DHeader>
+                <Typography variant="h5" style={{ fontWeight: '600' }}>
+                    Witaj {userName}
+                </Typography>
+                <IconButton color="inherit" aria-label="open drawer" onClick={handleOpenMenu}>
+                    menu
+                </IconButton>
+                <Menu anchorEl={anchorEl} open={isMenuOpen} onClose={handleMenuClose}>
+                    <MenuItem onClick={handleLogout}>
+                        <Logout /> Wyloguj
+                    </MenuItem>
+                </Menu>
+            </DHeader>
+            <Box>
+                <DContainer>
+                    <DashboardUserList />
+                </DContainer>
+            </Box>
+        </MainContainer>
     );
 };
 

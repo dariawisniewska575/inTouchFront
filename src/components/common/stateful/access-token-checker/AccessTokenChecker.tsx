@@ -3,7 +3,6 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { toast } from 'react-toastify';
 import { refreshUserTokenRequest } from 'src/api/auth/currentUserApi';
 import { UserContext } from 'src/common/context/UserContext';
-import { ClaimTypes } from 'src/common/enums/ClaimTypes';
 import { LocalStorageKey } from 'src/common/enums/LocalStorageKey';
 import { Pages } from 'src/common/enums/Pages';
 import { StorageTypes } from 'src/common/enums/StorageTypes';
@@ -59,7 +58,7 @@ const AccessTokenChecker: React.FC = () => {
             return false;
         }
 
-        return (accessTokenExpirationDate.getTime() - Date.now()) / 1000 < checkIntervalMinutes * 60;
+        return (new Date(accessTokenExpirationDate).getTime() - Date.now()) / 1000 < checkIntervalMinutes * 60;
     }, [accessTokenExpirationDate, checkIntervalMinutes]);
 
     useEffect(() => {

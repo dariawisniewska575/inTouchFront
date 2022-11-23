@@ -1,8 +1,9 @@
 import { createTheme, PaletteOptions } from '@mui/material/styles';
 import { defaultFont } from 'src/common/styles/fonts';
-import inTouchColors from './inTouchColors';
-import { colors } from './colors';
-import palette from './palette';
+import { colors } from '../colors';
+import inTouchColors from '../inTouchColors';
+
+import palette from '../palette';
 
 export default createTheme({
     palette: palette as PaletteOptions,
@@ -29,6 +30,15 @@ export default createTheme({
                 font-weight: 500;
               }
           `,
+        },
+    },
+    breakpoints: {
+        values: {
+            xs: 400,
+            sm: 600,
+            md: 900,
+            lg: 1200,
+            xl: 1536,
         },
     },
 });

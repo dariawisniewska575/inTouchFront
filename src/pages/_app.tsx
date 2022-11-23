@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import React, { useMemo, useState } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from 'src/common/configs/emotionCache';
-import defaultTheme from 'src/common/styles/variables/themes';
+import defaultTheme from 'src/common/styles/variables/themes/default-theme';
 import { UserContextUser } from 'src/common/models/contexts/UserContext';
 import { getPersistedUserContextUser, UserContext } from 'src/common/context/UserContext';
 
@@ -43,9 +43,9 @@ const App: React.FC<InTouchAppProps> = ({ Component, pageProps, emotionCache = c
                 {userContextUser?.isLogged && (
                     <>
                         <UserContextUpdater />
+                        <AccessTokenChecker />
                     </>
                 )}
-                <AccessTokenChecker />
                 <Toasts />
             </>
         ),
@@ -54,13 +54,15 @@ const App: React.FC<InTouchAppProps> = ({ Component, pageProps, emotionCache = c
 
     return (
         <>
-            <CacheProvider value={emotionCache}>
-                <MuiThemeProvider theme={defaultTheme}>
-                    <ScThemeProvider theme={defaultTheme}>
-                        <UserContext.Provider value={userContextValue}>{components}</UserContext.Provider>
-                    </ScThemeProvider>
-                </MuiThemeProvider>
-            </CacheProvider>
+            {
+                <CacheProvider value={emotionCache}>
+                    <MuiThemeProvider theme={defaultTheme}>
+                        <ScThemeProvider theme={defaultTheme}>
+                            <UserContext.Provider value={userContextValue}>{components}</UserContext.Provider>
+                        </ScThemeProvider>
+                    </MuiThemeProvider>
+                </CacheProvider>
+            }
         </>
     );
 };
