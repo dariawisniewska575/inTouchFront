@@ -16,7 +16,7 @@ const HintChipStyled = styled(Chip, {
     shouldForwardProp: (prop) => (prop === '$isValid' ? false : true),
 })<{ $isValid?: boolean }>`
     padding: 0 8px;
-    color: ${colors.lighterBlue};
+    color: ${colors.lightBlue};
     ${(props) =>
         props.$isValid === true &&
         `

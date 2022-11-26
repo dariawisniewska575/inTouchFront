@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { getCurrentUserRequest } from 'src/api/auth/currentUserApi';
+import { getCurrentUserRequest } from 'src/api/currentUserApi';
 import { UserContext } from 'src/common/context/UserContext';
 import { handleApiError } from 'src/common/helpers/errorHelper';
 

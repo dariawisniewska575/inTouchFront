@@ -1,4 +1,4 @@
-import { createApiClient } from '../../common/configs/axiosClientConfig';
+import { createApiClient } from '../common/configs/axiosClientConfig';
 
 if (!process.env.NEXT_PUBLIC_AUTH_API_BASE_URL) {
     throw new Error('NEXT_PUBLIC_AUTH_API_BASE_URL not set');

@@ -15,7 +15,7 @@ import { passwordValidationSchema } from 'src/common/validation-schemas/password
 import HintChip, { HintChipContainer } from 'src/components/common/stateful/hint-chip/HintChip';
 import { CenteringMarginContainer } from 'src/components/common/stateless/centering-container/CenteringContainer';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { resetPasswordRequest } from 'src/api/auth/authApi';
+import { resetPasswordRequest } from 'src/api/authApi';
 import { ResetPasswordRequest } from 'src/common/models/api/auth/requests/ResetPasswordRequest';
 
 const ResetPasswordForm: React.FC = () => {

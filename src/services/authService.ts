@@ -1,4 +1,4 @@
-import { signInRequest } from 'src/api/auth/authApi';
+import { signInRequest } from 'src/api/authApi';
 import { ClaimTypes } from 'src/common/enums/ClaimTypes';
 import { LocalStorageKey } from 'src/common/enums/LocalStorageKey';
 import { StorageTypes } from 'src/common/enums/StorageTypes';

@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Container, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createAccountRequest } from 'src/api/auth/authApi';
+import { createAccountRequest } from 'src/api/authApi';
 import { toast } from 'react-toastify';
 import { handleApiError } from 'src/common/helpers/errorHelper';
 import { customRefNameRegister } from 'src/common/helpers/reactHookFormHelper';

@@ -7,7 +7,7 @@ import { Pages } from 'src/common/enums/Pages';
 import { getQueryParams } from 'src/common/helpers/routingHelper';
 import { handleApiError } from 'src/common/helpers/errorHelper';
 import inTouchColors from 'src/common/styles/variables/themes/inTouchColors';
-import { confirmEmailRequest } from 'src/api/auth/authApi';
+import { confirmEmailRequest } from 'src/api/authApi';
 
 const ConfirmEmail: React.FC = () => {
     const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);

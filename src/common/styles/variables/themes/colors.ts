@@ -8,5 +8,5 @@ export const colors = {
     lightGray: '#F6F8FB',
     backgroundColor: '#F2F2F2',
     green: '#3d8b1e',
-    lighterBlue: '#8a8da9',
+    lightBlueOpacity: 'rgba(167, 200, 242, 0.2)',
 };

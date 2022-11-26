@@ -7,7 +7,7 @@ import CustomLink from 'src/components/common/stateful/custom-link/CustomLink';
 import { CenteringMarginContainer } from 'src/components/common/stateless/centering-container/CenteringContainer';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { handleApiError } from 'src/common/helpers/errorHelper';
-import { sendPasswordResetLinkRequest } from 'src/api/auth/authApi';
+import { sendPasswordResetLinkRequest } from 'src/api/authApi';
 import { SendPasswordResetLinkRequest } from 'src/common/models/api/auth/requests/SendPasswordResetLinkRequest';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { emailValidationSchema } from 'src/common/validation-schemas/emailValidationSchema';

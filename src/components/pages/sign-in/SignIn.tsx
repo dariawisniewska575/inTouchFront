@@ -21,7 +21,7 @@ import { handleApiError } from 'src/common/helpers/errorHelper';
 import { UserContext } from 'src/common/context/UserContext';
 import { CenteringMarginContainer } from '../../common/stateless/centering-container/CenteringContainer';
 import inTouchColors from 'src/common/styles/variables/themes/inTouchColors';
-import { getCurrentUserRequest } from 'src/api/auth/currentUserApi';
+import { getCurrentUserRequest } from 'src/api/currentUserApi';
 
 const SignIn: React.FC = () => {
     const { setUserContextUser } = useContext(UserContext);

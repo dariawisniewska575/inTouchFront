@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react';
-import { signOutRequest } from 'src/api/auth/currentUserApi';
+import { signOutRequest } from 'src/api/currentUserApi';
 import { UserContext } from 'src/common/context/UserContext';
 import { LocalStorageKey } from 'src/common/enums/LocalStorageKey';
 import { Pages } from 'src/common/enums/Pages';

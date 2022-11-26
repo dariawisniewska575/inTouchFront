@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { refreshUserTokenRequest } from 'src/api/auth/currentUserApi';
+import { refreshUserTokenRequest } from 'src/api/currentUserApi';
 import { UserContext } from 'src/common/context/UserContext';
 import { LocalStorageKey } from 'src/common/enums/LocalStorageKey';
 import { Pages } from 'src/common/enums/Pages';

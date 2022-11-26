@@ -10,6 +10,7 @@ export const routes: BaseRouteItem = {
     createAccount: '/stworz-konto',
     resetPassword: '/resetuj-haslo',
     confirmEmail: '/confirm-email',
+    settings: '/dashboard/ustawienia',
 };
 
 export const getPagePathname = (page: Pages): string => {
@@ -24,6 +25,8 @@ export const getPagePathname = (page: Pages): string => {
             return routes.resetPassword;
         case Pages.confirmEmail:
             return routes.confirmEmail;
+        case Pages.settings:
+            return routes.settings;
         default:
             return routes.dashboard;
     }

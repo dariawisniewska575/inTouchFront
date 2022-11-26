@@ -24,4 +24,5 @@ export const DContainer = styled(Box)`
     min-height: 800px;
     border: 1px solid ${colors.lightBlue};
     border-radius: 20px;
+    padding: 16px;
 `;
