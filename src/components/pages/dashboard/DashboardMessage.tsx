@@ -68,7 +68,17 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
         };
         chatContextd.hub?.invoke('SendMessageAsync', message);
         setSendedMessage('');
+        setFileSource('');
     }, [chatContextd.hub, chatId, fileName, fileSource, sendedMessage, userId, userName]);
+
+    const handleKeyEnterToSend = useCallback(
+        (e: React.KeyboardEvent) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        },
+        [sendMessage],
+    );
 
     useEffect(() => {
         chatContextd.hub?.invoke('OpenChat', chatId);
@@ -244,6 +254,7 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
                                 fullWidth
                                 value={sendedMessage}
                                 onChange={(e) => setSendedMessage(e.target.value)}
+                                onKeyDown={(e) => handleKeyEnterToSend(e)}
                             />
                         </div>
                         <div {...getRootProps()}>
