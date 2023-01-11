@@ -5,10 +5,6 @@ import { authApiClient } from './authApiClient';
 
 const controllerName = 'auth/';
 
-// export const changeUserPasswordRequest = async (request: ChangeUserPasswordRequest): Promise<void> => {
-//     await authApiClient.post(controllerName + 'change-password', request);
-// };
-
 export const getCurrentUserRequest = async (): Promise<User> => {
     const response = await authApiClient.get(controllerName + 'current-user');
     return response.data;

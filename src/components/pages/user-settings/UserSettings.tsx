@@ -3,14 +3,16 @@ import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import { updateAccountRequest } from 'src/api/accountApi';
 import { handleApiError } from 'src/common/helpers/errorHelper';
-import DefaultDropzone from 'src/components/common/stateless/default-dropzone/DefaultDropzone';
+import UserSettingsAvatar from './UserSettingsAvatar';
 import UserSettingsEmail from './UserSettingsEmail';
 import UserSettingsPassword from './UserSettingsPassword';
+import UserSettingsRemoveAccountModal from './UserSettingsRemoveAccountModal';
 import { USContainer, USSmallBox, USSmallBoxContainer } from './UserSettingStyles';
 
 const UserSettings: React.FC = () => {
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [open, setOpen] = useState(false);
 
     const handleUpdateAccount = useCallback(async () => {
         try {
@@ -21,6 +23,9 @@ const UserSettings: React.FC = () => {
         }
     }, [lastName, name]);
 
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
         <USContainer>
             <USSmallBoxContainer>
@@ -33,10 +38,16 @@ const UserSettings: React.FC = () => {
             </USSmallBoxContainer>
             <USSmallBoxContainer>
                 <UserSettingsEmail />
-                <USSmallBox sx={{ mt: 1 }}>
-                    <DefaultDropzone />
+                <UserSettingsAvatar />
+            </USSmallBoxContainer>
+            <USSmallBoxContainer>
+                <USSmallBox>
+                    <Button color="error" onClick={() => setOpen(true)}>
+                        Usuń konto
+                    </Button>
                 </USSmallBox>
             </USSmallBoxContainer>
+            {open && <UserSettingsRemoveAccountModal handleClose={handleClose} />}
         </USContainer>
     );
 };

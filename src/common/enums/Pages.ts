@@ -6,4 +6,5 @@ export enum Pages {
     resetPassword = 'resetPassword',
     confirmEmail = 'confirmEmail',
     settings = 'settings',
+    invitations = 'invitations',
 }

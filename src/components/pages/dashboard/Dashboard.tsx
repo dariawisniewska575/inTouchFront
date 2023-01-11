@@ -1,15 +1,20 @@
 import { useRouter } from 'next/router';
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { UserContext } from 'src/common/context/UserContext';
 import { Pages } from 'src/common/enums/Pages';
 import { getPageUrl } from 'src/common/helpers/routingHelper';
-import DashboardUserList from './DashboardUserList';
+import DashboardChatsList from './DashboardChatsList';
+import { DComponents } from './DashboardStyles';
+import DashboardMessage from './DashboardMessage';
+import { ChatType } from 'src/common/enums/ChatType';
 
 const Dashboard: React.FC = () => {
     const router = useRouter();
     const userContext = useContext(UserContext);
     const isLogged = userContext.user?.isLogged;
-
+    const [chatId, setChatId] = useState('');
+    const [chatUserName, setChatUserName] = useState('');
+    const [chatType, setChatType] = useState<ChatType>(ChatType.PRIVATE);
     const goToLoginPage = useCallback(() => {
         router.push(getPageUrl(Pages.signIn));
     }, [router]);
@@ -18,7 +23,12 @@ const Dashboard: React.FC = () => {
         !isLogged && goToLoginPage();
     }, [goToLoginPage, isLogged]);
 
-    return <DashboardUserList />;
+    return (
+        <DComponents>
+            <DashboardChatsList setChatId={setChatId} setChatUserName={setChatUserName} setChatType={setChatType} />
+            <DashboardMessage chatId={chatId} chatUserName={chatUserName} chatType={chatType} />
+        </DComponents>
+    );
 };
 
 export default Dashboard;

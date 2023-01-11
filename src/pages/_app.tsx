@@ -10,6 +10,7 @@ import { UserContextUser } from 'src/common/models/contexts/UserContext';
 import { getPersistedUserContextUser, UserContext } from 'src/common/context/UserContext';
 import { Layouts } from 'src/common/enums/Layouts';
 import { DefaultProps } from 'src/common/models/common/DefaultProps';
+import ChatContextWrapper from 'src/common/context/ChatContext';
 
 const Toasts = dynamic(() => import('src/components/common/stateful/toasts/Toasts'), { ssr: false });
 
@@ -23,6 +24,8 @@ const UserContextUpdater = dynamic(
         ssr: false,
     },
 );
+
+const Messages = dynamic(() => import('src/components/hooks/message/Messages'));
 
 const DashboardLayout = dynamic(() => import('src/components/common/stateful/dashboard-layout/DashboardLayout'), {
     ssr: false,
@@ -65,6 +68,7 @@ const App: React.FC<InTouchAppProps> = ({ Component, pageProps, emotionCache = c
                     <>
                         <UserContextUpdater />
                         <AccessTokenChecker />
+                        <Messages />
                     </>
                 )}
                 <Toasts />
@@ -79,7 +83,9 @@ const App: React.FC<InTouchAppProps> = ({ Component, pageProps, emotionCache = c
                 <CacheProvider value={emotionCache}>
                     <MuiThemeProvider theme={defaultTheme}>
                         <ScThemeProvider theme={defaultTheme}>
-                            <UserContext.Provider value={userContextValue}>{components}</UserContext.Provider>
+                            <UserContext.Provider value={userContextValue}>
+                                <ChatContextWrapper>{components}</ChatContextWrapper>
+                            </UserContext.Provider>
                         </ScThemeProvider>
                     </MuiThemeProvider>
                 </CacheProvider>

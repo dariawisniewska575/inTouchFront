@@ -11,6 +11,7 @@ export const routes: BaseRouteItem = {
     resetPassword: '/resetuj-haslo',
     confirmEmail: '/confirm-email',
     settings: '/dashboard/ustawienia',
+    invications: '/dashboard/zaproszenia',
 };
 
 export const getPagePathname = (page: Pages): string => {
@@ -27,6 +28,8 @@ export const getPagePathname = (page: Pages): string => {
             return routes.confirmEmail;
         case Pages.settings:
             return routes.settings;
+        case Pages.invitations:
+            return routes.invications;
         default:
             return routes.dashboard;
     }

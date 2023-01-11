@@ -5,4 +5,5 @@ export interface BaseRouteItem {
     resetPassword: string;
     confirmEmail: string;
     settings: string;
+    invications: string;
 }

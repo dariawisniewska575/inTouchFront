@@ -22,7 +22,7 @@ const UserSettingsEmail = (): JSX.Element => {
 
     const handleChangeEmail = useCallback(async (data: Email) => {
         try {
-            await changeEmailRequest({ email: data.email });
+            await changeEmailRequest({ newEmail: data.email });
             toast.success('Email został zmieniony');
         } catch (ex) {
             handleApiError(ex);

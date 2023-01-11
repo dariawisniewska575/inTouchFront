@@ -14,6 +14,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = (props) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
     const { signOut } = useCurrentUserHelper();
+    const [avatar, setAvatar] = useState<string>();
     const welcomeUser = useMemo(() => {
         return 'Witaj ' + userName;
     }, [userName]);
@@ -29,6 +30,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = (props) => {
         try {
             const request = await getCurrentUserRequest();
             setUserName(request.firstName);
+            setAvatar(request.avatarSource);
         } catch (ex) {
             handleApiError(ex);
         }
@@ -48,9 +50,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = (props) => {
             <DHeader>
                 <PageLink page={Pages.dashboard}>{welcomeUser}</PageLink>
                 <IconButton color="inherit" aria-label="open drawer" onClick={handleOpenMenu}>
-                    <Avatar sx={{ background: colors.white, color: colors.black }}> {userName[0]}</Avatar>
+                    {avatar ? (
+                        <Avatar src={avatar} />
+                    ) : (
+                        <Avatar sx={{ background: colors.white, color: colors.black }}> {userName[0]}</Avatar>
+                    )}
                 </IconButton>
                 <Menu anchorEl={anchorEl} open={isMenuOpen} onClose={handleMenuClose}>
+                    <MenuItem>
+                        <PageLink page={Pages.invitations}>Zaproszenia i blokady</PageLink>
+                    </MenuItem>
                     <MenuItem>
                         <PageLink page={Pages.settings}>Ustawienia </PageLink>
                     </MenuItem>

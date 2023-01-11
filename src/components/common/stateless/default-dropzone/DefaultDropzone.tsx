@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import { DdContainer } from './DefaultDropzoneStyles';
 import { useDropzone } from 'react-dropzone';
 import { Button } from '@mui/material';
+import { changeAvatarRequest } from 'src/api/accountApi';
+import { handleApiError } from 'src/common/helpers/errorHelper';
 
 const DefaultDropzone: React.FC = () => {
     const { getRootProps, getInputProps, acceptedFiles } = useDropzone({});
@@ -12,8 +14,12 @@ const DefaultDropzone: React.FC = () => {
     });
 
     const handleAdd = useCallback(async () => {
-        //  console.log('a');
-    }, []);
+        try {
+            await changeAvatarRequest({ avatar: files[0] });
+        } catch (ex) {
+            handleApiError(ex);
+        }
+    }, [files]);
     return (
         <>
             <DdContainer {...getRootProps()}>
@@ -21,12 +27,6 @@ const DefaultDropzone: React.FC = () => {
 
                 <p style={{ cursor: 'pointer' }}>Dodaj plik</p>
             </DdContainer>
-            {files.map((file) => (
-                <div key={file.name}>
-                    <aside key={file.name}>{file.name}</aside>
-                    <img src={URL.createObjectURL(file)} />
-                </div>
-            ))}
             <Button disabled={files.length === 0 ? true : false} onClick={() => handleAdd()}>
                 Zmień
             </Button>

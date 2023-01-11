@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, TextField, Typography } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { changePasswordRequest } from 'src/api/accountApi';
 import { handleApiError } from 'src/common/helpers/errorHelper';
 import { getPasswordRequirements } from 'src/common/helpers/passwordHelper';
@@ -29,6 +30,7 @@ const UserSettingsPassword = (): JSX.Element => {
     const handleChangePassword = useCallback(async (data: Password) => {
         try {
             await changePasswordRequest({ newPassword: data.newPassword, oldPassword: data.oldPassword });
+            toast.success('Hasło zostało zmienione');
         } catch (ex) {
             handleApiError(ex);
         }
@@ -66,7 +68,9 @@ const UserSettingsPassword = (): JSX.Element => {
                         <HintChip success={value ? true : isSubmitted ? false : undefined} icon key={key} label={key} />
                     ))}
             </HintChipContainer>
-            {watchOldPassword !== watchPassword && <Typography>Hasła się róznią</Typography>}
+            {watchOldPassword === watchPassword && watchOldPassword.length > 0 && watchPassword.length > 0 && (
+                <Typography>Hasła są takie same</Typography>
+            )}
             <Button type="submit" disabled={!(isValid && validPasswordRequirements)}>
                 Zmień
             </Button>
