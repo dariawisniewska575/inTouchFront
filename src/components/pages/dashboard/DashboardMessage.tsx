@@ -69,6 +69,7 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
         chatContextd.hub?.invoke('SendMessageAsync', message);
         setSendedMessage('');
         setFileSource('');
+        setFileName('');
     }, [chatContextd.hub, chatId, fileName, fileSource, sendedMessage, userId, userName]);
 
     const handleKeyEnterToSend = useCallback(
@@ -198,7 +199,7 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
                         {messages &&
                             messages.map((message, x) =>
                                 message.senderId === 'ChatBot' ? (
-                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }} key={x}>
                                         <Typography variant="caption">{message.content}</Typography>
                                     </div>
                                 ) : (
@@ -251,8 +252,9 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
                     >
                         <div style={{ background: 'white', borderRadius: '20px', width: '80%' }}>
                             <TextField
+                                autoComplete="off"
                                 fullWidth
-                                value={sendedMessage}
+                                value={fileName !== '' ? fileName : sendedMessage}
                                 onChange={(e) => setSendedMessage(e.target.value)}
                                 onKeyDown={(e) => handleKeyEnterToSend(e)}
                             />

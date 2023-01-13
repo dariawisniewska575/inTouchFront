@@ -6,7 +6,8 @@ export const getPasswordRequirements = (watchPassword: string): WatchPasswordReq
         [PasswordRequirement.OneLowerCaseLetter]: /(.*[a-z].*)/.test(watchPassword),
         [PasswordRequirement.OneUpperCaseLetter]: /(.*[A-Z].*)/.test(watchPassword),
         [PasswordRequirement.OneDigit]: /(.*\d.*)/.test(watchPassword),
-        [PasswordRequirement.Min6Letters]: watchPassword.length >= 6,
+        [PasswordRequirement.Min6Letters]: watchPassword.length >= 8,
+        [PasswordRequirement.Alphanumeric]: /(.*^(?=.*[!@#\$%^&]).*)/.test(watchPassword),
     };
     return requirements;
 };
