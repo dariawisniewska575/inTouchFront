@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import { updateAccountRequest } from 'src/api/accountApi';
 import { handleApiError } from 'src/common/helpers/errorHelper';
+import PrivateComponent from 'src/components/common/stateful/private-component/PrivateComponent';
 import UserSettingsAvatar from './UserSettingsAvatar';
 import UserSettingsEmail from './UserSettingsEmail';
 import UserSettingsPassword from './UserSettingsPassword';
@@ -27,28 +28,30 @@ const UserSettings: React.FC = () => {
         setOpen(false);
     };
     return (
-        <USContainer>
-            <USSmallBoxContainer>
-                <USSmallBox sx={{ mt: 1 }}>
-                    <TextField label="Imię" onChange={(e) => setName(e.target.value)} />
-                    <TextField label="Nazwisko" onChange={(e) => setLastName(e.target.value)} />
-                    <Button onClick={() => handleUpdateAccount()}>Zmień</Button>
-                </USSmallBox>
-                <UserSettingsPassword />
-            </USSmallBoxContainer>
-            <USSmallBoxContainer>
-                <UserSettingsEmail />
-                <UserSettingsAvatar />
-            </USSmallBoxContainer>
-            <USSmallBoxContainer>
-                <USSmallBox>
-                    <Button color="error" onClick={() => setOpen(true)}>
-                        Usuń konto
-                    </Button>
-                </USSmallBox>
-            </USSmallBoxContainer>
-            {open && <UserSettingsRemoveAccountModal handleClose={handleClose} />}
-        </USContainer>
+        <PrivateComponent>
+            <USContainer>
+                <USSmallBoxContainer>
+                    <USSmallBox sx={{ mt: 1 }}>
+                        <TextField label="Imię" onChange={(e) => setName(e.target.value)} />
+                        <TextField label="Nazwisko" onChange={(e) => setLastName(e.target.value)} />
+                        <Button onClick={() => handleUpdateAccount()}>Zmień</Button>
+                    </USSmallBox>
+                    <UserSettingsPassword />
+                </USSmallBoxContainer>
+                <USSmallBoxContainer>
+                    <UserSettingsEmail />
+                    <UserSettingsAvatar />
+                </USSmallBoxContainer>
+                <USSmallBoxContainer>
+                    <USSmallBox>
+                        <Button color="error" onClick={() => setOpen(true)}>
+                            Usuń konto
+                        </Button>
+                    </USSmallBox>
+                </USSmallBoxContainer>
+                {open && <UserSettingsRemoveAccountModal handleClose={handleClose} />}
+            </USContainer>
+        </PrivateComponent>
     );
 };
 

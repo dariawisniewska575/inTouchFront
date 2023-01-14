@@ -14,6 +14,7 @@ import { User } from 'src/common/models/dto/user/User';
 import { colors } from 'src/common/styles/variables/themes/colors';
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 import { toast } from 'react-toastify';
+import PrivateComponent from 'src/components/common/stateful/private-component/PrivateComponent';
 const DashboardInvications = (): JSX.Element => {
     const [invitees, setInvitees] = useState<User[]>([]);
     const [waitings, setWaitings] = useState<User[]>([]);
@@ -103,101 +104,103 @@ const DashboardInvications = (): JSX.Element => {
         getBlocked();
     }, [getBlocked, getInvitees, getWaitings]);
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
-            <div>
-                <Typography variant="h5">Wysłane zaproszenia</Typography>
-                {invitees.length > 0 ? (
-                    invitees.map((invitedUser) => (
-                        <div
-                            style={{
-                                background: colors.lightBlueOpacity,
-                                margin: '16px',
-                                padding: '10px',
-                                borderRadius: '20px',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                            }}
-                            key={invitedUser.id}
-                        >
-                            <div>
-                                {invitedUser.firstName} {invitedUser.lastName}
-                            </div>
-                            <div style={{ marginTop: '2px' }}>
-                                <AiOutlineClose onClick={() => cancelInvite(invitedUser.id)} />
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <div style={{ fontStyle: 'italic' }}>Brak wysłanych zaproszeń</div>
-                )}
-            </div>
-            <div>
-                <Typography variant="h5">Otrzymane zaproszenia</Typography>
-                {waitings.length > 0 ? (
-                    waitings.map((waitingUser) => (
-                        <div
-                            style={{
-                                background: colors.lightBlueOpacity,
-                                margin: '16px',
-                                padding: '10px',
-                                borderRadius: '20px',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                            }}
-                            key={waitingUser.id}
-                        >
-                            <div>
-                                {waitingUser.firstName} {waitingUser.lastName}
-                            </div>
-                            <div style={{ marginTop: '2px' }}>
-                                <AiOutlineCheck onClick={() => acceptInvite(waitingUser.id)} />
-                                <AiOutlineClose onClick={() => rejectInvite(waitingUser.id)} />
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <div style={{ fontStyle: 'italic' }}>Brak otrzymanych zaproszeń</div>
-                )}
-            </div>
-            <div>
-                <Typography variant="h5">Zablokowani użytkownicy</Typography>
-                {blocked.length > 0 ? (
-                    blocked.map((blockedUser) => (
-                        <div
-                            style={{
-                                background: colors.lightBlueOpacity,
-                                margin: '16px',
-                                padding: '10px',
-                                borderRadius: '20px',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                            }}
-                            key={blockedUser.id}
-                        >
-                            <div>
-                                {blockedUser.firstName} {blockedUser.lastName}
-                            </div>
+        <PrivateComponent>
+            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                <div>
+                    <Typography variant="h5">Wysłane zaproszenia</Typography>
+                    {invitees.length > 0 ? (
+                        invitees.map((invitedUser) => (
                             <div
-                                onClick={() => unblockUser(blockedUser.id)}
                                 style={{
-                                    fontSize: '12px',
+                                    background: colors.lightBlueOpacity,
+                                    margin: '16px',
+                                    padding: '10px',
+                                    borderRadius: '20px',
                                     display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    padding: '4px',
-                                    border: `1px solid ${colors.lightBlue}`,
-                                    cursor: 'pointer',
+                                    justifyContent: 'space-between',
                                 }}
+                                key={invitedUser.id}
                             >
-                                Odblokuj
+                                <div>
+                                    {invitedUser.firstName} {invitedUser.lastName}
+                                </div>
+                                <div style={{ marginTop: '2px' }}>
+                                    <AiOutlineClose onClick={() => cancelInvite(invitedUser.id)} />
+                                </div>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    <div style={{ fontStyle: 'italic' }}>Brak zablokowanych użytkowników</div>
-                )}
+                        ))
+                    ) : (
+                        <div style={{ fontStyle: 'italic' }}>Brak wysłanych zaproszeń</div>
+                    )}
+                </div>
+                <div>
+                    <Typography variant="h5">Otrzymane zaproszenia</Typography>
+                    {waitings.length > 0 ? (
+                        waitings.map((waitingUser) => (
+                            <div
+                                style={{
+                                    background: colors.lightBlueOpacity,
+                                    margin: '16px',
+                                    padding: '10px',
+                                    borderRadius: '20px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}
+                                key={waitingUser.id}
+                            >
+                                <div>
+                                    {waitingUser.firstName} {waitingUser.lastName}
+                                </div>
+                                <div style={{ marginTop: '2px' }}>
+                                    <AiOutlineCheck onClick={() => acceptInvite(waitingUser.id)} />
+                                    <AiOutlineClose onClick={() => rejectInvite(waitingUser.id)} />
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div style={{ fontStyle: 'italic' }}>Brak otrzymanych zaproszeń</div>
+                    )}
+                </div>
+                <div>
+                    <Typography variant="h5">Zablokowani użytkownicy</Typography>
+                    {blocked.length > 0 ? (
+                        blocked.map((blockedUser) => (
+                            <div
+                                style={{
+                                    background: colors.lightBlueOpacity,
+                                    margin: '16px',
+                                    padding: '10px',
+                                    borderRadius: '20px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}
+                                key={blockedUser.id}
+                            >
+                                <div>
+                                    {blockedUser.firstName} {blockedUser.lastName}
+                                </div>
+                                <div
+                                    onClick={() => unblockUser(blockedUser.id)}
+                                    style={{
+                                        fontSize: '12px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        padding: '4px',
+                                        border: `1px solid ${colors.lightBlue}`,
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    Odblokuj
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div style={{ fontStyle: 'italic' }}>Brak zablokowanych użytkowników</div>
+                    )}
+                </div>
             </div>
-        </div>
+        </PrivateComponent>
     );
 };
 

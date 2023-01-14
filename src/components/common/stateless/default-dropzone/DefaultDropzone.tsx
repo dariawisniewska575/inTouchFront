@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-
 import { DdContainer } from './DefaultDropzoneStyles';
 import { useDropzone } from 'react-dropzone';
 import { Button } from '@mui/material';
@@ -16,6 +15,7 @@ const DefaultDropzone: React.FC = () => {
     const handleAdd = useCallback(async () => {
         try {
             await changeAvatarRequest({ avatar: files[0] });
+            window.location.reload();
         } catch (ex) {
             handleApiError(ex);
         }

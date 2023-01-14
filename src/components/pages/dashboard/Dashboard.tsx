@@ -7,6 +7,7 @@ import DashboardChatsList from './DashboardChatsList';
 import { DComponents } from './DashboardStyles';
 import DashboardMessage from './DashboardMessage';
 import { ChatType } from 'src/common/enums/ChatType';
+import PrivateComponent from 'src/components/common/stateful/private-component/PrivateComponent';
 
 const Dashboard: React.FC = () => {
     const router = useRouter();
@@ -24,10 +25,12 @@ const Dashboard: React.FC = () => {
     }, [goToLoginPage, isLogged]);
 
     return (
-        <DComponents>
-            <DashboardChatsList setChatId={setChatId} setChatUserName={setChatUserName} setChatType={setChatType} />
-            <DashboardMessage chatId={chatId} chatUserName={chatUserName} chatType={chatType} />
-        </DComponents>
+        <PrivateComponent>
+            <DComponents>
+                <DashboardChatsList setChatId={setChatId} setChatUserName={setChatUserName} setChatType={setChatType} />
+                <DashboardMessage chatId={chatId} chatUserName={chatUserName} chatType={chatType} />
+            </DComponents>
+        </PrivateComponent>
     );
 };
 

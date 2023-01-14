@@ -14,6 +14,7 @@ import { ChatUser } from 'src/common/models/dto/chat/ChatUser';
 import DashboardMessagesRemoveUserModal from './DashboardMessagesRemoveUserModal';
 import { BsFillFileEarmarkPlusFill } from 'react-icons/bs';
 import { useDropzone } from 'react-dropzone';
+import PrivateComponent from 'src/components/common/stateful/private-component/PrivateComponent';
 
 const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
     const chatContextd = useContext(ChatContext);
@@ -141,7 +142,7 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
         if (acceptedFiles[0]) sendFile();
     }, [acceptedFiles, sendFile]);
     return (
-        <>
+        <PrivateComponent>
             {chatId === '' ? (
                 <div
                     style={{
@@ -284,7 +285,7 @@ const DashboardMessage = (props: DashboardMessageProps): JSX.Element => {
                     setUserToRemoveId={setRemoveFriendId}
                 />
             )}
-        </>
+        </PrivateComponent>
     );
 };
 
